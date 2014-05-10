@@ -32,3 +32,5 @@ let’s create the model, views, controller, and migration for our products tabl
 
 	rails generate scaffold Product \
          title:string description:text image_url:string price:decimal
+
+let’s refine the definition of the price to have eight digits of signifi- cance and two digits after the decimal point. [code]()
