@@ -1,4 +1,4 @@
-## Creating a New Demo Application
+## Creating a Demo Application
 
 	> cd work
 	demo> rails new demo
@@ -22,4 +22,13 @@ Now we need code for a controller and a view, and we need a route to connect the
 
 We have created a controller named say which support the hello and goodbye actions.
 
-  
+## Creating the Depot application
+
+Let's create a new app
+
+	rails new depot
+
+let’s create the model, views, controller, and migration for our products table.
+
+	rails generate scaffold Product \
+         title:string description:text image_url:string price:decimal
