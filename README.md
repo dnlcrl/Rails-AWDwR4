@@ -41,5 +41,9 @@ execute migration
 
 	> rake db:migrate
 
+populate the db editing the seeds.rb (* SHA: f32de1eb2f745e09350c80d9270e7c4cf5f16c4b) file and executing 
 
+	rake db:seed
+
+	
 
