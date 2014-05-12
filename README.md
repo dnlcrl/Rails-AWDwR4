@@ -57,3 +57,9 @@ We’ve already created the products controller, used by the seller to administe
 edit config/routes.rb to make /store/index the root of our website
 
 	root 'store#index', as: 'store'
+
+Implement the cart and the line item.
+To add a column to a model (quantity to line_item in this case)
+
+	> rails generate migration add_quantity_to_line_items quantity:integer
+
