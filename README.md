@@ -72,3 +72,14 @@ migrations.
 
 	rake db:migrate:status
 
+Create the order feature:
+
+	> rails generate scaffold Order name address:text email pay_type
+	> rails generate migration add_order_to_line_item order:references
+	> rake db:migrate
+
+How to access to db
+
+	> sqlite3 -line db/development.sqlite3
+	> select * from orders;
+	> select * from line_items;
