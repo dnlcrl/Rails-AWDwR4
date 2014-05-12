@@ -54,4 +54,6 @@ We’ve already created the products controller, used by the seller to administe
 	
 	> rails generate controller Store index
 
+edit config/routes.rb to make /store/index the root of our website
 
+	root 'store#index', as: 'store'
