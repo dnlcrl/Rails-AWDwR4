@@ -35,7 +35,7 @@ let’s create the model, views, controller, and migration for our products tabl
 
 let’s refine the definition of the price to have eight digits of significance and two digits after the decimal point. 
 
-	* SHA: f607d2f6bb2abec26430017784fbc2b4e13ab10d
+* SHA: f607d2f6bb2abec26430017784fbc2b4e13ab10d
 
 execute migration
 
@@ -45,5 +45,8 @@ populate the db editing the seeds.rb (* SHA: f32de1eb2f745e09350c80d9270e7c4cf5f
 
 	rake db:seed
 
+add validations to product model and run 
 	
+	rake test
+
 
