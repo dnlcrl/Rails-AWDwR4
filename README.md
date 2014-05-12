@@ -50,3 +50,8 @@ add validations to product model and tests for the product controller and the mo
 	rake test:models
 
 
+We’ve already created the products controller, used by the seller to administer the Depot application. Now it’s time to create a second controller, one that interacts with the paying customers. Let’s call it Store.
+	
+	> rails generate controller Store index
+
+
