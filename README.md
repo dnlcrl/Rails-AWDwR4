@@ -83,3 +83,7 @@ How to access to db
 	> sqlite3 -line db/development.sqlite3
 	> select * from orders;
 	> select * from line_items;
+
+create an atom feed for the taken orders and then try it yourself by typing
+
+	> curl --silent http://localhost:3000/products/3/who_bought.atom
