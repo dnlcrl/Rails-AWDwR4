@@ -92,3 +92,7 @@ Implement the mailer and set the configurations in config/environment.rb apply t
 
 
 	> rails generate mailer OrderNotifier received shipped
+
+When you create a model or controller, Rails creates the corresponding unit or functional tests. Integration tests are not automatically created, however, but you can use a generator to create one.
+
+	rails generate integration_test user_stories
