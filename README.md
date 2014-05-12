@@ -87,3 +87,8 @@ How to access to db
 create an atom feed for the taken orders and then try it yourself by typing
 
 	> curl --silent http://localhost:3000/products/3/who_bought.atom
+
+Implement the mailer and set the configurations in config/environment.rb apply to both test and deploy
+
+
+	> rails generate mailer OrderNotifier received shipped
