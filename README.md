@@ -101,3 +101,9 @@ Implementing the Logging in: create the user table
 
 	> rails generate scaffold User name:string password:digest
 	> rake db:migrate
+
+After creating a user you can check it with
+
+	qlite3 -line db/development.sqlite3 "select * from users"
+
+	
