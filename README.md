@@ -63,3 +63,12 @@ To add a column to a model (quantity to line_item in this case)
 
 	> rails generate migration add_quantity_to_line_items quantity:integer
 
+we can easily roll back our migration with a single command.
+
+	> rake db:rollback
+
+Rails provides a handy rake task to allow you to check the status of your
+migrations.
+
+	rake db:migrate:status
+
