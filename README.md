@@ -45,8 +45,8 @@ populate the db editing the seeds.rb (* SHA: f32de1eb2f745e09350c80d9270e7c4cf5f
 
 	rake db:seed
 
-add validations to product model and run 
-	
-	rake test
+add validations to product model and tests for the product controller and the model and then run
+
+	rake test:models
 
 
