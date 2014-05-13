@@ -1,83 +1,90 @@
-class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart 
+class OrdersController < ApplicationController
+  skip_before_action :authorize, only: [:new, :create]
+  include CurrentCart
+  before_action :set_cart, only: [:new, :create]
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
 
-  # GET /carts
-  # GET /carts.json
+  # GET /orders
+  # GET /orders.json
   def index
-    @carts = Cart.all
+    @orders = Order.all
   end
 
-  # GET /carts/1
-  # GET /carts/1.json
+  # GET /orders/1
+  # GET /orders/1.json
   def show
   end
 
-  # GET /carts/new
+  # GET /orders/new
   def new
-    @cart = Cart.new
+    if @cart.line_items.empty?
+      redirect_to store_url, notice: "Your cart is empty"
+      return
+    end
+
+    @order = Order.new
   end
 
-  # GET /carts/1/edit
+  # GET /orders/1/edit
   def edit
   end
 
-  # POST /carts
-  # POST /carts.json
+  # POST /orders
+  # POST /orders.json
   def create
-    @cart = Cart.new(cart_params)
+    @order = Order.new(order_params)
+    @order.add_line_items_from_cart(@cart)
 
     respond_to do |format|
-      if @cart.save
-        format.html { redirect_to @cart, notice: 'Cart was successfully created.' }
-        format.json { render :show, status: :created, location: @cart }
+      if @order.save
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+        OrderNotifier.received(@order).deliver
+        format.html { redirect_to store_url, notice: 
+          'Thank you for your order.' }
+        format.json { render action: 'show', status: :created,
+          location: @order }
       else
-        format.html { render :new }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.html { render action: 'new' }
+        format.json { render json: @order.errors,
+          status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /carts/1
-  # PATCH/PUT /carts/1.json
+  # PATCH/PUT /orders/1
+  # PATCH/PUT /orders/1.json
   def update
     respond_to do |format|
-      if @cart.update(cart_params)
-        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cart }
+      if @order.update(order_params)
+        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.json { head :no_content }
       else
-        format.html { render :edit }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.html { render action: 'edit' }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /carts/1
-  # DELETE /carts/1.json
+  # DELETE /orders/1
+  # DELETE /orders/1.json
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id] = nil
+    @order.destroy
     respond_to do |format|
-      format.html { redirect_to store_url }
+      format.html { redirect_to orders_url }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_cart
-      @cart = Cart.find(params[:id])
+    def set_order
+      @order = Order.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def cart_params
-      params[:cart]
+    def order_params
+      params.require(:order).permit(:name, :address, :email, :pay_type)
     end
-
-    def invalid_cart
-      logger.error "Attempt to access invalid cart #{params[:id]}"
-      redirect_to store_url, notice: 'Invalid cart'
-    end
-
-
+  #...
 end
