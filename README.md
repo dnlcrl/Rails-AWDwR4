@@ -104,6 +104,11 @@ Implementing the Logging in: create the user table
 
 After creating a user you can check it with
 
-	qlite3 -line db/development.sqlite3 "select * from users"
+	> qlite3 -line db/development.sqlite3 "select * from users"
 
-	
+You can also run
+
+	> rails console
+	> User.create(name: 'dave', password: 'secret', password_confirmation: 'secret')
+
+to create a user
